@@ -118,26 +118,29 @@ By default, the service listens on the port defined in `PORT` (3000).
 
 ### User Routes
 
-| Method | Endpoint           | Description                   |
-| ------ | ------------------ | ----------------------------- |
-| GET    | `/api/users`       | List all users                |
-| GET    | `/api/users/:id`   | Retrieve a user by ID         |
-| POST   | `/api/users`       | Create a new user             |
-| PUT    | `/api/users/:id`   | Update an existing user       |
-| DELETE | `/api/users/:id`   | Delete a user                 |
+| Method | Endpoint                   | Description                   |
+| ------ | -------------------------- | ----------------------------- |
+| GET    | `/api/users`               | List all users                |
+| GET    | `/api/users/:id`           | Retrieve user details by ID   |
+| PUT    | `/api/users/:id`           | Update an existing user       |
+| DELETE | `/api/users/:id`           | Remove a user                 |
+| POST   | `/api/users/:id/suspend`   | Suspend a user account        |
+| POST   | `/api/users/:id/activate`  | Activate a user account       |
 
 ### Transaction Routes
 
 | Method | Endpoint                   | Description                   |
 | ------ | -------------------------- | ----------------------------- |
 | GET    | `/api/transactions`        | List all transactions         |
-| POST   | `/api/transactions`        | Create a new transaction      |
+| GET    | `/api/transactions/:id`    | Get transaction details by ID |
 
 ### Statistics Routes
 
-| Method | Endpoint                 | Description                   |
-| ------ | ------------------------ | ----------------------------- |
-| GET    | `/api/statistics`        | Retrieve aggregated statistics|
+| Method | Endpoint                     | Description                   |
+| ------ | ---------------------------- | ----------------------------- |
+users statistics |
+| GET    | `/api/statistics/logins`     | Get login statistics          |
+| GET    | `/api/statistics/revenue`    | Get revenue statistics        |
 
 ## Middleware
 

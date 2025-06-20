@@ -102,13 +102,13 @@ if (!fs.existsSync(logsDir)) {
 }
 
 // Routes
-app.use("/api/v1", router);
+app.use("/api/v1/admin", router);
 
 // Serve Swagger UI
-app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use("/api/v1/admin/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Health check endpoint
-app.get("/api/v1/health", (req, res) => {
+app.get("/api/v1/admin/health", (req, res) => {
   res.status(200).json({ status: "UP", timestamp: new Date() });
 });
 
