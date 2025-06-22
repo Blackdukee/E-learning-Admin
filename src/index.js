@@ -7,12 +7,15 @@ const morgan = require("morgan");
 const { errorHandler } = require("./middlewares/errorHandler");
 const router = require("./routes/index");
 const logger = require("./utils/logger");
-
+const path = require("path");
+const fs = require("fs");
 const app = express();
 
 // Swagger setup
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+
+const swagger_schemas = require("./utils/swagger_schemas");
 
 // Swagger definition
 const swaggerOptions = {
@@ -23,7 +26,9 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API documentation for the Payment Service",
     },
-    servers: [{ url: `http://localhost:${process.env.PORT || 5002}/api/v1` }],
+    servers: [
+      { url: `http://localhost:${process.env.PORT || 5002}/api/v1/admin` },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -34,6 +39,11 @@ const swaggerOptions = {
       },
       schemas: { ...swagger_schemas },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./src/routes/*.js", "./src/controllers/*.js"],
 };
@@ -101,16 +111,15 @@ if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
 
-// Routes
-app.use("/api/v1/admin", router);
-
-// Serve Swagger UI
-app.use("/api/v1/admin/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-
 // Health check endpoint
 app.get("/api/v1/admin/health", (req, res) => {
   res.status(200).json({ status: "UP", timestamp: new Date() });
 });
+// Serve Swagger UI
+app.use("/api/v1/admin/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+// Routes
+app.use("/api/v1/admin", router);
+
 
 // Error handler
 app.use(errorHandler);

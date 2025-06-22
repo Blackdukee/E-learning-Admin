@@ -1,7 +1,8 @@
+const { error } = require("winston");
 const logger = require("../utils/logger");
 
 class AppError extends Error {
-  constructor(name = "AppError", message, statusCode) {
+  constructor(message, statusCode, name = "AppError") {
     super(message);
     this.name = name;
     this.statusCode = statusCode;
@@ -24,6 +25,8 @@ const errorHandler = (err, req, res, next) => {
   return res.status(500).json({
     status: "error",
     message: "Something went wrong!",
+    error: err.message || "Internal Server Error",
+    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
   
 };

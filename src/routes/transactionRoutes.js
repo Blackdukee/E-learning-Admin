@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const transactionController = require('../controllers/transactionController');
+const paymentController = require('../controllers/paymentController');
+const { validateToken } = require("../middlewares/auth");
 
-router.get('/', transactionController.getAllTransactions);
-router.get('/:id', transactionController.getTransactionDetails);
+router.use(validateToken);
+
+router.get('/', paymentController.getAllTransactions);
+router.get('/:id', paymentController.getTransactionDetails);
 
 module.exports = router;

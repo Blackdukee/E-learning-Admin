@@ -28,7 +28,6 @@ const getRevenueStatistics = async (params = {}) => {
 };
 
 module.exports = {
-  getActiveUsers,
   getLoginStatistics,
   getRevenueStatistics
 };
